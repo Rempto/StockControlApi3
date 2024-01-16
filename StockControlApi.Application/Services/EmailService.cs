@@ -21,7 +21,7 @@ namespace StockControlApi.Application.Services
                 var message = new MimeMessage();
                
 
-                message.From.Add(new MailboxAddress("Horae", "no-reply@usetaylor.com"));
+                message.From.Add(new MailboxAddress("teste", "teste"));
                 message.To.Add(new MailboxAddress(email, email));
                 message.Subject = "Redefinição de Senha";
 
@@ -38,10 +38,10 @@ namespace StockControlApi.Application.Services
            
             using (var client = new SmtpClient())
             {
-                client.Connect("smtp.usetaylor.com", 587, MailKit.Security.SecureSocketOptions.None);
+                client.Connect("testes", 587, MailKit.Security.SecureSocketOptions.None);
 
             
-                client.Authenticate("no-reply@usetaylor.com", "Enourmossauro25");
+                client.Authenticate("testes", "testse");
                 client.Send(message);
                 client.Disconnect(true);
             }
