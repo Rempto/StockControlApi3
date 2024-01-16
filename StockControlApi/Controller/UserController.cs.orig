@@ -1,0 +1,68 @@
+﻿using StockControlApi.Application.Models;
+using StockControlApi.Application.Services;
+using StockControlApi.Application.Services.Interfaces;
+using StockControlApi.Domain.Entities;
+using StockControlApi.Helpers;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using System.Security.Principal;
+
+namespace StockControlApi.Controller
+{
+    [ApiController]
+    [Route("[controller]")]
+    //[Authorize("Bearer")]
+    public class UserController : ControllerBase
+    {
+        private readonly IUserService _userService;
+
+        public UserController(IUserService userService)
+        {
+            _userService = userService;
+        }
+        [HttpGet]
+        [Route("get")]
+        public async Task<IActionResult> GetAsync()
+        {
+            return new ResponseHelper().CreateResponse(await _userService.GetAsync());
+        }
+
+        [HttpPost]
+        [Route("post")]
+        public async Task<IActionResult> CreateUser(UserModel user)
+        {
+            return new ResponseHelper().CreateResponse(await _userService.CreateUser(user));
+        }
+
+        [HttpPost]
+        [Route("login")]
+        public async Task<IActionResult> Login(UserModel user)
+        {
+            return new ResponseHelper().CreateResponse(await _userService.Login(user));
+        }
+        [HttpPut]
+        [Route("edit-password")]
+        public async Task<IActionResult> UpdatePassword(string email,string oldPassword,string newPassword)
+        {
+            return new ResponseHelper().CreateResponse(await _userService.ChangePassword(email,oldPassword,newPassword));
+        }
+        [HttpGet]
+        [Route("send-email")]
+        public async Task<IActionResult> SendEmail([FromQuery]string email)
+        {
+           return new ResponseHelper().CreateResponse(await _userService.sendEmail(email));
+        }
+        [HttpPut]
+        [Route("edit-email-password")]
+        public async Task<IActionResult> UpdateEmailPassword(string id, string newPassword)
+        {
+            return new ResponseHelper().CreateResponse(await _userService.ChangeEmailPassword(id, newPassword));
+        }
+<<<<<<< HEAD
+        //aloooo
+=======
+        // É pra dar conflito
+>>>>>>> e7a19420a4c6fbfbe44044e03c0e45357b8014ba
+    }
+}
